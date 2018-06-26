@@ -66,7 +66,7 @@ public class MetaServiceImpl implements MetaService {
                         metaDomain.setMid(mid);
 
                     metaDao.updateMeta(metaDomain);
-                    //更新原有的文章分类
+                    //鏇存柊鍘熸湁鐨勬枃绔犲垎绫�
                     contentService.updateCategory(meta.getName(), name);
                 } else {
                     metaDomain.setType(type);
@@ -139,7 +139,7 @@ public class MetaServiceImpl implements MetaService {
             String type = meta.getType();
             String name = meta.getName();
             metaDao.deleteMetaById(mid);
-            //需要把相关的数据删除
+            //闇�瑕佹妸鐩稿叧鐨勬暟鎹垹闄�
             List<RelationShipDomain> relationShips = relationShipDao.getRelationShipByMid(mid);
             if (null != relationShips && relationShips.size() > 0){
                 for (RelationShipDomain relationShip : relationShips) {
@@ -153,7 +153,7 @@ public class MetaServiceImpl implements MetaService {
                         if (type.equals(Types.TAG.getType())) {
                             temp.setTags(reMeta(name, article.getTags()));
                         }
-                        //将删除的资源去除
+                        //灏嗗垹闄ょ殑璧勬簮鍘婚櫎
                         contentService.updateArticleById(temp);
                     }
                 }

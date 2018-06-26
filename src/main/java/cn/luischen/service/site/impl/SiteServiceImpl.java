@@ -89,7 +89,6 @@ public class SiteServiceImpl implements SiteService{
     }
 
     @Override
-    @Cacheable(value = "siteCache", key = "'statistics_'")
     public StatisticsDto getStatistics() {
         LOGGER.debug("Enter recentStatistics method");
         //文章总数
@@ -121,7 +120,6 @@ public class SiteServiceImpl implements SiteService{
     }
 
     @Override
-    @Cacheable(value = "siteCache", key = "'archives_' + #p0")
     public List<ArchiveDto> getArchives(ContentCond contentCond) {
         LOGGER.debug("Enter getArchives method");
         List<ArchiveDto> archives = contentDao.getArchive(contentCond);

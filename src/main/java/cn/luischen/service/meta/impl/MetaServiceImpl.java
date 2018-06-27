@@ -183,14 +183,13 @@ public class MetaServiceImpl implements MetaService {
     }
 
     @Override
-    @Cacheable(value = "metaCaches", key = "'metas_' + #p0")
-    public List<MetaDomain> getMetas(MetaCond metaCond) {
+/*    @Cacheable(value = "metaCaches", key = "'metas_' + #p0")
+*/    public List<MetaDomain> getMetas(MetaCond metaCond) {
         return metaDao.getMetasByCond(metaCond);
     }
 
 
     @Override
-    @Cacheable(value = "metaCaches", key = "'metaList_' + #p0")
     public List<MetaDto> getMetaList(String type, String orderby, int limit) {
         if (StringUtils.isNotBlank(type)){
             if (StringUtils.isBlank(orderby)) {

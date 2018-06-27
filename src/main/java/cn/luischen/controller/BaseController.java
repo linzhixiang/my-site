@@ -1,23 +1,22 @@
 package cn.luischen.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import cn.luischen.constant.Types;
 import cn.luischen.constant.WebConst;
-import cn.luischen.dto.ArchiveDto;
 import cn.luischen.dto.MetaDto;
 import cn.luischen.dto.cond.ContentCond;
-import cn.luischen.dto.cond.MetaCond;
-import cn.luischen.model.ContentDomain;
 import cn.luischen.model.UserDomain;
 import cn.luischen.service.content.ContentService;
 import cn.luischen.service.meta.MetaService;
 import cn.luischen.service.site.SiteService;
 import cn.luischen.utils.MapCache;
 import cn.luischen.utils.TaleUtils;
-import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import cn.luischen.utils.UUID;
 
 /**
  *
@@ -36,7 +35,7 @@ public abstract class BaseController {
 
 
     protected MapCache cache = MapCache.single();
-
+    
     public BaseController title(HttpServletRequest request, String title) {
         request.setAttribute("title", title);
         return this;

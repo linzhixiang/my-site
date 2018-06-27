@@ -4,6 +4,7 @@ import cn.luischen.api.QiniuCloudService;
 import cn.luischen.constant.ErrorConstant;
 import cn.luischen.constant.Types;
 import cn.luischen.constant.WebConst;
+import cn.luischen.controller.util.FileUploadUtils;
 import cn.luischen.dto.AttAchDto;
 import cn.luischen.exception.BusinessException;
 import cn.luischen.model.AttAchDomain;
@@ -12,10 +13,13 @@ import cn.luischen.service.attach.AttAchService;
 import cn.luischen.utils.APIResponse;
 import cn.luischen.utils.Commons;
 import cn.luischen.utils.TaleUtils;
+
 import com.github.pagehelper.PageInfo;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import java.io.IOException;
 
 /**
@@ -82,16 +87,17 @@ public class AttAchController {
 
             String fileName = TaleUtils.getFileKey(file.getOriginalFilename()).replaceFirst("/","");
 
-            QiniuCloudService.upload(file, fileName);
+            //QiniuCloudService.upload(file, fileName);
+            String filePath=FileUploadUtils.uploadAttFile("ATT_PIC", file);
             AttAchDomain attAch = new AttAchDomain();
             HttpSession session = request.getSession();
             UserDomain sessionUser = (UserDomain) session.getAttribute(WebConst.LOGIN_SESSION_KEY);
             attAch.setAuthorId(sessionUser.getUid());
-            attAch.setFtype(TaleUtils.isImage(file.getInputStream()) ? Types.IMAGE.getType() : Types.FILE.getType());
-            attAch.setFname(fileName);
-            attAch.setFkey(QiniuCloudService.QINIU_UPLOAD_SITE + fileName);
+            attAch.setFtype(file.getContentType().contains("image") ? Types.IMAGE.getType() : Types.FILE.getType());
+            attAch.setFname(filePath);
+            attAch.setFkey(filePath);
             attAchService.addAttAch(attAch);
-            response.getWriter().write( "{\"success\": 1, \"message\":\"上传成功\",\"url\":\"" + attAch.getFkey() + "\"}" );
+            response.getWriter().write( "{\"success\": 1, \"message\":\"上传成功\",\"url\":\"" +FileUploadUtils.remoteFileServicePath+filePath+ "\"}" );
         } catch (IOException e) {
             e.printStackTrace();
             try {
@@ -122,14 +128,15 @@ public class AttAchController {
 
                 String fileName = TaleUtils.getFileKey(file.getOriginalFilename()).replaceFirst("/","");
 
-                QiniuCloudService.upload(file, fileName);
+                //QiniuCloudService.upload(file, fileName);
+                String filePath=FileUploadUtils.uploadAttFile("ATT_PIC", file);
                 AttAchDomain attAch = new AttAchDomain();
                 HttpSession session = request.getSession();
                 UserDomain sessionUser = (UserDomain) session.getAttribute(WebConst.LOGIN_SESSION_KEY);
                 attAch.setAuthorId(sessionUser.getUid());
-                attAch.setFtype(TaleUtils.isImage(file.getInputStream()) ? Types.IMAGE.getType() : Types.FILE.getType());
-                attAch.setFname(fileName);
-                attAch.setFkey(QiniuCloudService.QINIU_UPLOAD_SITE + fileName);
+                attAch.setFtype(file.getContentType().contains("image") ?  Types.IMAGE.getType() : Types.FILE.getType());
+                attAch.setFname(filePath);
+                attAch.setFkey(filePath);
                 attAchService.addAttAch(attAch);
             }
             return APIResponse.success();

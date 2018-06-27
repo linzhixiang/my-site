@@ -78,9 +78,9 @@
                         <th:block th:unless="${commons.is_empty(attachs)}">
                             <th:block th:each="attach : ${attachs.list}">
                                 <div class="col-md-2 text-center m-t-10">
-                                    <a th:href="${attach.fkey}" target="_blank">
+                                    <a th:href="'http://47.96.90.27:8080/fdWebFile'+${attach.fkey}" target="_blank">
                                         <img class="attach-img"
-                                             th:src="@{${attach.ftype == 'image'}?${attach.fkey}: '/admin/images/attach.png'}"
+                                             th:src="@{${attach.ftype == 'image'}?'http://47.96.90.27:8080/fdWebFile'+${attach.fkey}: '/admin/images/attach.png'}"
                                              th:title="${attach.fname}"/>
                                     </a>
                                     <div class="clearfix m-t-10">
@@ -89,7 +89,7 @@
                       th:text="${commons.substr(attach.fname, 12)}"></span>
                                     </div>
                                     <div class="clearfix">
-                                        <button th:attr="url=${attach.fkey}" type="button"
+                                        <button th:attr="url='http://47.96.90.27:8080/fdWebFile'+${attach.fkey}" type="button"
                                                 class="btn btn-warning btn-sm waves-effect waves-light m-t-5 copy">
                                             <i class="fa fa-copy"></i> <span>复制</span>
                                         </button>

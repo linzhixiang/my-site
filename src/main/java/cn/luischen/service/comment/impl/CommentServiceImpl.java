@@ -146,16 +146,16 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    @Cacheable(value = "commentCache", key = "'commentsByCId_' + #p0")
-    public List<CommentDomain> getCommentsByCId(Integer cid) {
+/*    @Cacheable(value = "commentCache", key = "'commentsByCId_' + #p0")
+*/    public List<CommentDomain> getCommentsByCId(Integer cid) {
         if (null == cid)
             throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
         return commentDao.getCommentsByCId(cid);
     }
 
     @Override
-    @Cacheable(value = "commentCache", key = "'commentsByCond_' + #p1")
-    public PageInfo<CommentDomain> getCommentsByCond(CommentCond commentCond, int pageNum, int pageSize) {
+/*    @Cacheable(value = "commentCache", key = "'commentsByCond_' + #p1")
+*/    public PageInfo<CommentDomain> getCommentsByCond(CommentCond commentCond, int pageNum, int pageSize) {
         if (null == commentCond)
             throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
         PageHelper.startPage(pageNum, pageSize);

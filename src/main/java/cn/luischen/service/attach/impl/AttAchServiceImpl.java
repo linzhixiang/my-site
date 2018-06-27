@@ -65,7 +65,7 @@ public class AttAchServiceImpl implements AttAchService {
     }
 
     @Override
-    @Cacheable(value = "attCaches", key = "'atts' + #p0")
+/*    @Cacheable(value = "attCaches", key = "'atts' + #p0")*/
     public PageInfo<AttAchDto> getAtts(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<AttAchDto> atts = attAchDao.getAtts();

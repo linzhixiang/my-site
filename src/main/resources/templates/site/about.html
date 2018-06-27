@@ -62,17 +62,17 @@
                 <div class="clearfix"></div>
 
                 
-
-                <!-- thumbnails -->
+<!-- 
+                thumbnails
 
                 	<div class="thumbnails-pan">
                         <th:block th:each="link,linkStat : ${links}">
-                            <th:block th:if="${linkStat.index < 3}">
+                            <th:block >
                                 <section class="col-xs-12 col-sm-4 col-md-4 col-lg-4 ">
 
                                     <figure>
 
-                                        <img th:src="@{'/site/images/about-images/about-image-' + ${linkStat.index+1} + '.jpg'}" th:onclick="'javascript:linkFirend(\''+${link.slug}+'\')'" class="img-responsive"/>
+                                        <img th:src="@{'/site/images/about-images/about-image-1.jpg'}" th:onclick="'javascript:linkFirend(\''+${link.slug}+'\')'" class="img-responsive"/>
 
                                         <figcaption>
 
@@ -97,7 +97,7 @@
 
                     </div>
 
-                <!-- thumbnails -->
+                thumbnails -->
 
                 
 

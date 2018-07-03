@@ -91,6 +91,8 @@ public class HomeController extends BaseController{
         p = p < 0 || p > WebConst.MAX_PAGE ? 1 : p;
         ContentCond contentCond = new ContentCond();
         contentCond.setType(Types.ARTICLE.getType());
+        //只查发布的文章 
+        contentCond.setStatus(Types.PUBLISH.getType());
         PageInfo<ContentDomain> articles = contentService.getArticlesByCond(contentCond, p, limit);
         request.setAttribute("articles", articles);//文章列表
         request.setAttribute("type", "articles");

@@ -65,6 +65,10 @@ public class AuthController extends BaseController{
             String remeber_me
     ){
         Integer error_count = cache.get("login_error_count");
+        
+        if (error_count !=null && error_count== 3) {
+            return APIResponse.fail("您输入密码已经错误超过3次，请10分钟后尝试");
+        }
         try {
             UserDomain userInfo = userService.login(username, password);
             request.getSession().setAttribute(WebConst.LOGIN_SESSION_KEY, userInfo);
